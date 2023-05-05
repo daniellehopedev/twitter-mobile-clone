@@ -1,4 +1,5 @@
 import { View, Image, Text, StyleSheet } from 'react-native';
+import { Entypo, EvilIcons } from '@expo/vector-icons';
 
 import { TweetType } from '../types';
 
@@ -6,14 +7,48 @@ type TweetProps = {
     tweet: TweetType
 }
 
+type IconButtonProps = {
+    icon: React.ComponentProps<typeof EvilIcons>['name'];
+    text?: number | string;
+}
+
+const IconButton = ({ icon, text }: IconButtonProps) => {
+    return (
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <EvilIcons name={icon} size={22} color="grey" />
+            <Text style={{ fontSize: 12, color: 'grey' }}>{text}</Text>
+        </View>
+    );
+}
+
 const Tweet = ({ tweet }: TweetProps) => {
     return (
         <View style={styles.container}>
-            <Image src={tweet.user.image} style={styles.userImage}/>
+            <Image src={tweet.user.image} style={styles.userImage} />
 
             <View style={styles.mainContainer}>
-                <Text style={styles.name}>{tweet.user.name}</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={styles.name}>{tweet.user.name}</Text>
+                    <Text style={styles.username}>@{tweet.user.username} • 2h</Text>
+                    <Entypo 
+                        name="dots-three-horizontal" 
+                        size={16} 
+                        color="grey" 
+                        style={{ marginLeft:  'auto' }} 
+                    />
+                </View>
+
                 <Text style={styles.content}>{tweet.content}</Text>
+
+                {tweet.image && <Image src={tweet.image} style={styles.image} />}
+
+                <View style={styles.footer}>
+                    <IconButton icon="comment" text={tweet.numberOfComments} />
+                    <IconButton icon="retweet" text={tweet.numberOfRetweets} />
+                    <IconButton icon="heart" text={tweet.numberOfLikes} />
+                    <IconButton icon="chart" text={tweet.impressions || 0} />
+                    <IconButton icon="share-apple" />
+                </View>
             </View>
         </View>
     );
@@ -39,9 +74,24 @@ const styles = StyleSheet.create({
     name: {
       fontWeight: '600'
     },
+    username: {
+        color: 'grey',
+        marginLeft: 5
+    },
     content: {
       lineHeight: 20,
       marginTop: 5
+    },
+    image: {
+        width: '100%',
+        aspectRatio: 16 / 9,
+        marginVertical: 10,
+        borderRadius: 15
+    },
+    footer: {
+        flexDirection: 'row',
+        marginVertical: 5,
+        justifyContent: 'space-between'
     }
 });
 
