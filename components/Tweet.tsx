@@ -3,22 +3,10 @@ import { Entypo, EvilIcons } from '@expo/vector-icons';
 
 import { TweetType } from '../types';
 
+import IconButton  from './IconButton';
+
 type TweetProps = {
     tweet: TweetType
-}
-
-type IconButtonProps = {
-    icon: React.ComponentProps<typeof EvilIcons>['name'];
-    text?: number | string;
-}
-
-const IconButton = ({ icon, text }: IconButtonProps) => {
-    return (
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <EvilIcons name={icon} size={22} color="grey" />
-            <Text style={{ fontSize: 12, color: 'grey' }}>{text}</Text>
-        </View>
-    );
 }
 
 const Tweet = ({ tweet }: TweetProps) => {
