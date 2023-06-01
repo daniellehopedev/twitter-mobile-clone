@@ -38,7 +38,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
       }}>
       <Tabs.Screen
-        name="feed"
+        name="(feed)"
         options={{
           title: 'Feed',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
